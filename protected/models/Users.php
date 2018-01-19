@@ -15,6 +15,7 @@
  */
 class Users extends CActiveRecord
 {
+    public $verifyCode;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -31,13 +32,14 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('role_id, login, password', 'required'),
+			array('role_id, login, password, verifyCode', 'required'),
 			array('role_id', 'numerical', 'integerOnly'=>true),
-			array('login', 'length', 'max'=>20),
-			array('password, FIO', 'length', 'max'=>250),
+			array('login, password', 'length', 'max'=>20),
+			array('FIO', 'length', 'max'=>250),
+            array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements() , 'on' => 'registerCaptcha'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('login, password, FIO', 'safe', 'on'=>'search'),
+			array('login, role_id, password, FIO', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,6 +55,11 @@ class Users extends CActiveRecord
 		);
 	}
 
+	public function beforeSave() {
+	    $this->password = md5("dsfds+342d" . $this->password);
+	    return parent::beforeSave();
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -60,10 +67,11 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'role_id' => 'Role',
-			'login' => 'Login',
-			'password' => 'Password',
-			'FIO' => 'Fio',
+			'role_id' => 'Роль',
+			'login' => 'Логин',
+			'password' => 'Пароль',
+			'FIO' => 'ФИО',
+            'verifyCode' => 'Проверочный код',
 		);
 	}
 

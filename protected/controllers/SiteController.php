@@ -11,7 +11,10 @@ class SiteController extends Controller
 			// captcha action renders the CAPTCHA image displayed on the contact page
 			'captcha'=>array(
 				'class'=>'CCaptchaAction',
+				/*'fixedVerifyCode' => "111",*/
 				'backColor'=>0xFFFFFF,
+                'minLength' => 3,
+                'maxLength' => 4,
 			),
 			// page action renders "static" pages stored under 'protected/views/site/pages'
 			// They can be accessed via: index.php?r=site/page&view=FileName
@@ -49,27 +52,22 @@ class SiteController extends Controller
 	/**
 	 * Displays the contact page
 	 */
-	public function actionContact()
+	public function actionRegister()
 	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
+		$user = new Users();
+		$user->scenario = 'registerCaptcha';
+		if(isset($_POST['Users']))
 		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
+            $user->attributes = $_POST['Users'];
+            $user->role_id = 2;
+			if($user->validate())
 			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-Type: text/plain; charset=UTF-8";
-
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+			    $user->save();
+				Yii::app()->user->setFlash('reg','Вы успешно зарегистрировались');
 				$this->refresh();
 			}
 		}
-		$this->render('contact',array('model'=>$model));
+		$this->render('register',array('model'=>$user));
 	}
 
 	/**

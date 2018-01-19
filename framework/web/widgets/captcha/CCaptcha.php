@@ -56,7 +56,7 @@ class CCaptcha extends CWidget
 	 * To enhance accessibility, you may set {@link imageOptions} to provide hints to end-users that
 	 * the image is clickable.
 	 */
-	public $clickableImage=false;
+	public $clickableImage=true;
 	/**
 	 * @var string the label for the refresh button. Defaults to 'Get a new code'.
 	 */
