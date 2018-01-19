@@ -3,7 +3,7 @@
 /* @var $model ContactForm */
 /* @var $form CActiveForm */
 
-$this->pageTitle=Yii::app()->name . ' - Register User';
+$this->pageTitle=Yii::app()->name . ' - Регистрация пользователя';
 //хлебные крошки - список ссылок
 $this->breadcrumbs=array(
 	'Регистрация',
@@ -20,10 +20,16 @@ $this->breadcrumbs=array(
 
 <?php else: ?>
 
+    <?php if($model->getErrors()) {?>
+
+        <div class="flash-error">
+            <?php echo var_dump($model->getErrors()); ?>
+        </div>
+        <?php }?>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'registerForm',
+	'id'=>'register-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,

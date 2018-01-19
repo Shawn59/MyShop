@@ -5,9 +5,9 @@
  * LoginForm is the data structure for keeping
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
-class LoginForm extends CFormModel
+class authorizationForm extends CFormModel
 {
-	public $username;
+	public $login;
 	public $password;
 	public $rememberMe;
 
@@ -22,11 +22,13 @@ class LoginForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('username, password', 'required'),
+			array('login, password', 'required'),
 			// rememberMe needs to be a boolean
 			array('rememberMe', 'boolean'),
 			// password needs to be authenticated
-			array('password', 'authenticate'),
+			array('password, login', 'authenticate'),
+            array('login, password', 'match', 'pattern' => '/^[A-Za-zs, 0-9]+$/u', 'message' => 'Используйте только символы латинского алфавита и цифры'),
+            array('login, password', 'length', 'max'=>20),
 		);
 	}
 
@@ -36,7 +38,9 @@ class LoginForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'rememberMe'=>'Remember me next time',
+			'rememberMe'=>'Запомнить меня',
+            'login' => 'Логин',
+            'password' => 'Пароль',
 		);
 	}
 
@@ -50,9 +54,15 @@ class LoginForm extends CFormModel
 	{
 		if(!$this->hasErrors())
 		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
+			$this->_identity=new UserIdentity($this->login, md5("dsfds+342d" . $this->password));
+			$f = $this->_identity->authenticate();
+			if(!$this->_identity->authenticate()) {
+			    if ($this->_identity->errorCode == UserIdentity::ERROR_USERNAME_INVALID) {
+                    $this->addError('login','Некорректный логин');
+                } elseif ($this->_identity->errorCode == UserIdentity::ERROR_PASSWORD_INVALID) {
+                    $this->addError('password','Некорректный пароль');
+                }
+            }
 		}
 	}
 
@@ -64,7 +74,7 @@ class LoginForm extends CFormModel
 	{
 		if($this->_identity===null)
 		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
+			$this->_identity=new UserIdentity($this->login, md5("dsfds+342d" . $this->password));
 			$this->_identity->authenticate();
 		}
 		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)

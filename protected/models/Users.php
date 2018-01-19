@@ -34,12 +34,14 @@ class Users extends CActiveRecord
 		return array(
 			array('role_id, login, password, verifyCode', 'required'),
 			array('role_id', 'numerical', 'integerOnly'=>true),
-			array('login, password', 'length', 'max'=>20),
+			array('login, password', 'match', 'pattern' => '/^[A-Za-zs, 0-9]+$/u', 'message' => 'Используйте только символы латинского алфавита и цифры'),
+            array('login, password', 'length', 'max'=>20),
+            array('login', 'unique'),
 			array('FIO', 'length', 'max'=>250),
             array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements() , 'on' => 'registerCaptcha'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('login, role_id, password, FIO', 'safe', 'on'=>'search'),
+			array('id, login, role_id, password, FIO', 'safe', 'on'=>'search'),
 		);
 	}
 
