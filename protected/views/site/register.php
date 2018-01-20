@@ -58,7 +58,7 @@ $this->breadcrumbs=array(
 		<?php echo $form->error($model,'FIO'); ?>
 	</div>
 
-	<?php if (CCaptcha::checkRequirements() && Yii::app()->user->isGuest) {?>
+	<?php if (CCaptcha::checkRequirements()) {?>
 	<div class="row">
 		<div>
 		<?php $this->widget('CCaptcha'); ?>

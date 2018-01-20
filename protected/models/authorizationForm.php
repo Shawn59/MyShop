@@ -26,9 +26,9 @@ class authorizationForm extends CFormModel
 			// rememberMe needs to be a boolean
 			array('rememberMe', 'boolean'),
 			// password needs to be authenticated
-			array('password, login', 'authenticate'),
             array('login, password', 'match', 'pattern' => '/^[A-Za-zs, 0-9]+$/u', 'message' => 'Используйте только символы латинского алфавита и цифры'),
             array('login, password', 'length', 'max'=>20),
+			array('password, login', 'authenticate'),
 		);
 	}
 

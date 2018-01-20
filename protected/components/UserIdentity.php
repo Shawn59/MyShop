@@ -7,6 +7,7 @@
  */
 class UserIdentity extends CUserIdentity
 {
+    private $_id;
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -19,6 +20,7 @@ class UserIdentity extends CUserIdentity
 	{
         if ($user = Users::model()->find("login = :log", array(":log" => $this->username))) {
             if ($user->password === $this->password) {
+                $this->_id = $user->id;
                 $this->errorCode=self::ERROR_NONE;
             } else {
                 $this->errorCode=self::ERROR_PASSWORD_INVALID;
@@ -28,4 +30,7 @@ class UserIdentity extends CUserIdentity
         }
 		return !$this->errorCode;
 	}
+	public function getId() {
+	    return $this->_id;
+    }
 }

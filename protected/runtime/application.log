@@ -1079,3 +1079,100 @@ REQUEST_URI=/index.php/site/login
 in D:\OpenServer\domains\MyShop\protected\components\UserIdentity.php (20)
 in D:\OpenServer\domains\MyShop\protected\models\authorizationForm.php (59)
 in D:\OpenServer\domains\MyShop\protected\controllers\SiteController.php (92)
+2018/01/20 21:31:29 [error] [php] Object of class UserIdentity could not be converted to string (D:\OpenServer\domains\MyShop\protected\components\UserIdentity.php:24)
+Stack trace:
+#0 D:\OpenServer\domains\MyShop\framework\validators\CValidator.php(201): CInlineValidator->validateAttribute()
+#1 D:\OpenServer\domains\MyShop\framework\base\CModel.php(159): CInlineValidator->validate()
+#2 D:\OpenServer\domains\MyShop\protected\controllers\SiteController.php(80): authorizationForm->validate()
+#3 D:\OpenServer\domains\MyShop\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#4 D:\OpenServer\domains\MyShop\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 D:\OpenServer\domains\MyShop\framework\web\CController.php(286): SiteController->runAction()
+#6 D:\OpenServer\domains\MyShop\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(282): SiteController->run()
+#8 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\OpenServer\domains\MyShop\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#10 D:\OpenServer\domains\MyShop\index.php(12): CWebApplication->run()
+REQUEST_URI=/index.php/site/login
+in D:\OpenServer\domains\MyShop\protected\components\UserIdentity.php (24)
+in D:\OpenServer\domains\MyShop\protected\models\authorizationForm.php (58)
+in D:\OpenServer\domains\MyShop\protected\controllers\SiteController.php (80)
+2018/01/20 21:32:13 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "CWebUser.username".' in D:\OpenServer\domains\MyShop\framework\base\CComponent.php:130
+Stack trace:
+#0 D:\OpenServer\domains\MyShop\framework\web\auth\CWebUser.php(146): CComponent->__get('username')
+#1 D:\OpenServer\domains\MyShop\protected\controllers\SiteController.php(81): CWebUser->__get('username')
+#2 D:\OpenServer\domains\MyShop\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#3 D:\OpenServer\domains\MyShop\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\MyShop\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\MyShop\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(282): CController->run('login')
+#7 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#8 D:\OpenServer\domains\MyShop\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\MyShop\index.php(12): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/login
+HTTP_REFERER=http://myshop.lh/index.php/site/login
+---
+2018/01/20 21:32:47 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "CWebUser.login".' in D:\OpenServer\domains\MyShop\framework\base\CComponent.php:130
+Stack trace:
+#0 D:\OpenServer\domains\MyShop\framework\web\auth\CWebUser.php(146): CComponent->__get('login')
+#1 D:\OpenServer\domains\MyShop\protected\controllers\SiteController.php(81): CWebUser->__get('login')
+#2 D:\OpenServer\domains\MyShop\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#3 D:\OpenServer\domains\MyShop\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\MyShop\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\MyShop\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(282): CController->run('login')
+#7 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#8 D:\OpenServer\domains\MyShop\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\MyShop\index.php(12): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/login
+HTTP_REFERER=http://myshop.lh/index.php/site/login
+---
+2018/01/20 21:33:36 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "CWebUser.getId".' in D:\OpenServer\domains\MyShop\framework\base\CComponent.php:130
+Stack trace:
+#0 D:\OpenServer\domains\MyShop\framework\web\auth\CWebUser.php(146): CComponent->__get('getId')
+#1 D:\OpenServer\domains\MyShop\protected\controllers\SiteController.php(81): CWebUser->__get('getId')
+#2 D:\OpenServer\domains\MyShop\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#3 D:\OpenServer\domains\MyShop\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\MyShop\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\MyShop\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(282): CController->run('login')
+#7 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#8 D:\OpenServer\domains\MyShop\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\MyShop\index.php(12): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/login
+HTTP_REFERER=http://myshop.lh/index.php/site/login
+---
+2018/01/20 21:34:51 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "CWebUser.getLogin".' in D:\OpenServer\domains\MyShop\framework\base\CComponent.php:130
+Stack trace:
+#0 D:\OpenServer\domains\MyShop\framework\web\auth\CWebUser.php(146): CComponent->__get('getLogin')
+#1 D:\OpenServer\domains\MyShop\protected\controllers\SiteController.php(81): CWebUser->__get('getLogin')
+#2 D:\OpenServer\domains\MyShop\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#3 D:\OpenServer\domains\MyShop\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\MyShop\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\MyShop\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(282): CController->run('login')
+#7 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#8 D:\OpenServer\domains\MyShop\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\MyShop\index.php(12): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/login
+HTTP_REFERER=http://myshop.lh/index.php/site/login
+---
+2018/01/20 21:37:23 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "CWebUser.getLogin".' in D:\OpenServer\domains\MyShop\framework\base\CComponent.php:130
+Stack trace:
+#0 D:\OpenServer\domains\MyShop\framework\web\auth\CWebUser.php(146): CComponent->__get('getLogin')
+#1 D:\OpenServer\domains\MyShop\protected\controllers\SiteController.php(81): CWebUser->__get('getLogin')
+#2 D:\OpenServer\domains\MyShop\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#3 D:\OpenServer\domains\MyShop\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\OpenServer\domains\MyShop\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\OpenServer\domains\MyShop\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(282): CController->run('login')
+#7 D:\OpenServer\domains\MyShop\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#8 D:\OpenServer\domains\MyShop\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 D:\OpenServer\domains\MyShop\index.php(12): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/site/login
+HTTP_REFERER=http://myshop.lh/index.php/site/login
+---

@@ -121,7 +121,7 @@ class GiiModule extends CWebModule
 				'errorAction'=>$this->getId().'/default/error',
 			),
 			'user'=>array(
-				'class'=>'CWebUser',
+				'class'=>'FCWebUser',
 				'stateKeyPrefix'=>'gii',
 				'loginUrl'=>Yii::app()->createUrl($this->getId().'/default/login'),
 			),
