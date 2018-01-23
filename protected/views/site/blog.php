@@ -8,7 +8,6 @@
  */
 
 $this->pageTitle = Yii::app()->name . 'Создание блога';
-$this->breadcrumbs = array('Создание блога');
 ?>
 
     <h1>Создание блога</h1>
