@@ -1,27 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "Comments".
  *
- * The followings are the available columns in table 'users':
+ * The followings are the available columns in table 'Comments':
  * @property integer $id
- * @property integer $role_id
- * @property string $login
- * @property string $password
- * @property string $FIO
+ * @property integer $record_id
+ * @property integer $text
  *
  * The followings are the available model relations:
- * @property Roles $role
+ * @property Records $record
  */
-class Users extends CActiveRecord
+class Comments extends CActiveRecord
 {
-    public $verifyCode;
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'users';
+		return 'Comments';
 	}
 
 	/**
@@ -32,16 +29,11 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('role_id, login, password, verifyCode', 'required'),
-			array('role_id', 'numerical', 'integerOnly'=>true),
-			array('login, password', 'match', 'pattern' => '/^[A-Za-zs, 0-9]+$/u', 'message' => 'Используйте только символы латинского алфавита и цифры'),
-            array('login, password', 'length', 'max'=>20),
-            array('login', 'unique'),
-			array('fio', 'length', 'max'=>250),
-            array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements() , 'on' => 'registerCaptcha'),
+			array('record_id, text', 'required'),
+			array('record_id, text', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, login, role_id, password, fio', 'safe', 'on'=>'search'),
+			array('id, record_id, text', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,15 +45,9 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'blogs' => array(self::HAS_MANY, 'Blogs', 'user_id'),
-			'role' => array(self::BELONGS_TO, 'Roles', 'role_id'),
+			'record' => array(self::BELONGS_TO, 'Records', 'record_id'),
 		);
 	}
-
-	public function beforeSave() {
-	    $this->password = md5("dsfds+342d" . $this->password);
-	    return parent::beforeSave();
-    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -70,11 +56,8 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'role_id' => 'Роль',
-			'login' => 'Логин',
-			'password' => 'Пароль',
-			'fio' => 'ФИО',
-            'verifyCode' => 'Проверочный код',
+			'record_id' => 'Record',
+			'text' => 'Text',
 		);
 	}
 
@@ -97,10 +80,8 @@ class Users extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('role_id',$this->role_id);
-		$criteria->compare('login',$this->login,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('fio',$this->fio,true);
+		$criteria->compare('record_id',$this->record_id);
+		$criteria->compare('text',$this->text);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -111,7 +92,7 @@ class Users extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Users the static model class
+	 * @return Comments the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -10,9 +10,6 @@
 $this->pageTitle = Yii::app()->name . 'Создание блога';
 ?>
 
-    <h1>Создание блога</h1>
-
-    <p>Введите логин и пароль для авторизации в системе</p>
 
     <div class="form">
 <?php $form = $this->beginWidget('CActiveForm', array(
@@ -22,6 +19,18 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
         'validateOnSubmit'=>true,
     ),
 )); ?>
+        <div class="list">
+            <div class="row">
+                <div class="title">
+                    <h2><?php echo "Добро пожаловать на блог пользователя : " .  Yii::app()->user->name?></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="description">
+                    <?php /*$form->textArea($model, 'text');*/?>
+                </div>
+            </div>
+        </div>
         <!--<div class="row">
             <?php /*echo $form->labelEx($model,'login'); */?>
             <?php /*echo $form->textField($model,'login'); */?>

@@ -1,6 +1,6 @@
 assets
 .idea/
-protected/runtime/*.log
+protected/runtime/
 framework/cli/runtime/
 framework/cli/views/shell/module/components/
 framework/cli/views/shell/module/messages/

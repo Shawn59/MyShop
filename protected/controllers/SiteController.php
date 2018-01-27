@@ -94,7 +94,7 @@ class SiteController extends Controller
         $this->redirect(Yii::app()->homeUrl);
     }
 
-    public  function  actionBlogForm() {
-        $this->render('blogForm', array('model' => 'd'));
+    public  function  actionBlog() {
+        $this->render('blog', array('model' => 'd'));
     }
 }

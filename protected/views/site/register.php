@@ -53,9 +53,9 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'FIO'); ?>
-		<?php echo $form->textField($model,'FIO',array('size'=>40,'maxlength'=>40)); ?>
-		<?php echo $form->error($model,'FIO'); ?>
+		<?php echo $form->labelEx($model,'fio'); ?>
+		<?php echo $form->textField($model,'fio',array('size'=>40,'maxlength'=>40)); ?>
+		<?php echo $form->error($model,'fio'); ?>
 	</div>
 
 	<?php if (CCaptcha::checkRequirements()) {?>

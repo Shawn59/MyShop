@@ -28,7 +28,16 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-
+		'debug' => array(
+			'class' => 'ext.yii2-debug.Yii2Debug',
+			'enabled' => true,
+			'allowedIPs' => array(
+				'127.0.0.1',
+				'::1',
+				'46.146.214.126', //et-dev office ertelecom
+				'86.109.221.27', //et-dev office megafon
+			),
+		),
 	),
 
 	// application components

@@ -19,7 +19,7 @@ class Blogs extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'blogs';
+		return 'Blogs';
 	}
 
 	/**
@@ -49,6 +49,7 @@ class Blogs extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'records' => array(self::HAS_MANY, 'Records', 'blog_id'),
 		);
 	}
 
