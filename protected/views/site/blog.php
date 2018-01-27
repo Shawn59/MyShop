@@ -19,18 +19,28 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
         'validateOnSubmit'=>true,
     ),
 )); ?>
+        <?php if (isset($model)) {?>
         <div class="list">
             <div class="row">
                 <div class="title">
-                    <h2><?php echo "Добро пожаловать на блог пользователя : " .  Yii::app()->user->name?></h2>
+                    <h2>
+                        <?php
+                            if (!Yii::app()->user->isGuest) {
+                                echo "Добро пожаловать на блог пользователя : " .  Yii::app()->user->name;
+                            } else {
+                                echo "Добро пожаловать";
+                            }
+                        ?>
+                    </h2>
                 </div>
             </div>
             <div class="row">
                 <div class="description">
-                    <?php /*$form->textArea($model, 'text');*/?>
+                    <?php echo $form->textArea($model, 'title', array('maxlength' => 30));?>
                 </div>
             </div>
         </div>
+        <?php }?>
         <!--<div class="row">
             <?php /*echo $form->labelEx($model,'login'); */?>
             <?php /*echo $form->textField($model,'login'); */?>

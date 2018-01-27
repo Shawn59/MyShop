@@ -95,6 +95,8 @@ class SiteController extends Controller
     }
 
     public  function  actionBlog() {
-        $this->render('blog', array('model' => 'd'));
+        $if =Yii::app()->user->id;
+        $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
+        $this->render('blog', array('model' => $blog));
     }
 }
