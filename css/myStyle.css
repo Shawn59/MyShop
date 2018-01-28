@@ -1,14 +1,29 @@
 .title {
     text-align: center;
-    margin: 0 auto;
-    height: 50px;
-    border-bottom: 1px solid #C9E0ED;
+    /*border-bottom: 1px solid #C9E0ED;*/
 }
 
-.list {
-
+.record .title {
+    text-align: left;
+    padding-left: 100px;
 }
 
-.row {
+.record .text {
+    padding-left: 150px;
+    color: #111;
+    padding-top: 10px;
+    font: italic 14px monospace;
+}
 
+.list .row {
+    margin: 10px 0;
+}
+
+.description {
+    text-align: center;
+}
+
+textarea {
+    width: 600px;
+    border: 2px solid #C9E0ED;
 }

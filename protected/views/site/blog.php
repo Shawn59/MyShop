@@ -19,7 +19,6 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
         'validateOnSubmit'=>true,
     ),
 )); ?>
-        <?php if (isset($model)) {?>
         <div class="list">
             <div class="row">
                 <div class="title">
@@ -34,23 +33,39 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                     </h2>
                 </div>
             </div>
+            <?php if (isset($blog)) {?>
+            <div class="row">
+                <div class="title">
+                    <h4>Информация</h4>
+                </div>
+            </div>
             <div class="row">
                 <div class="description">
-                    <?php echo $form->textArea($model, 'title', array('maxlength' => 30));?>
+                    <?php echo $form->textArea($blog, 'title', array('maxlength' => 255));?>
                 </div>
             </div>
         </div>
+            <div class="list">
+                <div class="row">
+                    <div class="title">
+                        <h4>Записи</h4>
+                    </div>
+                </div>
+                <?php if ($records) {
+                    foreach ($records as $record) {
+                    ?>
+                <div class="row">
+                    <div class="record">
+                        <div class="title">
+                            <?php echo $form->label($record, $record->title);?>
+                        </div>
+                        <div class="text">
+                            <?php echo $form->label($record, $record->text);?>
+                        </div>
+                    </div>
+                </div>
+                <?php }}?>
+            </div>
         <?php }?>
-        <!--<div class="row">
-            <?php /*echo $form->labelEx($model,'login'); */?>
-            <?php /*echo $form->textField($model,'login'); */?>
-            <?php /*echo $form->error($model,'login'); */?>
-        </div>
-
-        <div class="row">
-            <?php /*echo $form->labelEx($model,'password'); */?>
-            <?php /*echo $form->passwordField($model,'password'); */?>
-            <?php /*echo $form->error($model,'password'); */?>
-        </div>-->
 <?php $this->endWidget(); ?>
     </div>
