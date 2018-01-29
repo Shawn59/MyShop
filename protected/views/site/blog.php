@@ -57,10 +57,19 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                 <div class="row">
                     <div class="record">
                         <div class="title">
-                            <?php echo $form->label($record, $record->title);?>
+                            <?php $d = $record->title; echo $form->label($record, $d);?>
                         </div>
                         <div class="text">
                             <?php echo $form->label($record, $record->text);?>
+                        </div>
+                        <div class="title-text">
+                            <h5>коментарии:</h5>
+                        </div>
+                        <div class="comment">
+                            <?php echo $form->textArea($comment, 'text', array('maxlength' => 255));?>
+                        </div>
+                        <div class="row buttons addComment">
+                            <?php echo CHtml::submitButton('Добавить'); ?>
                         </div>
                     </div>
                 </div>

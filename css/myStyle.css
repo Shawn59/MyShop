@@ -15,8 +15,19 @@
     font: italic 14px monospace;
 }
 
-.list .row {
-    margin: 10px 0;
+.row .record{
+    border-top: 1px solid lightgrey;
+    padding: 20px;
+}
+
+.title-text {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.row.buttons.addComment {
+    text-align: right;
+    margin-right: 180px;
 }
 
 .description {
@@ -24,6 +35,23 @@
 }
 
 textarea {
+    padding: 5px;
     width: 600px;
     border: 2px solid #C9E0ED;
+    resize: none;
+    /* Для хороших браузеров */
+    -moz-border-radius: 10px; /* Firefox */
+    -webkit-border-radius: 10px; /* Safari, Chrome */
+    -khtml-border-radius: 10px; /* KHTML */
+    border-radius: 10px; /* CSS3 */
+    /* Для плохих IE */
+}
+
+.comment {
+    text-align: center;
+}
+
+.comment textarea {
+    width: 500px;
+    height: 100px;
 }
