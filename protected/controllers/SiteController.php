@@ -100,4 +100,8 @@ class SiteController extends Controller
             $comment = new Comments();
             $this->render('blog', array('blog' => $blog, 'records' => $records, 'comment' => $comment));
     }
+
+    public function addComment() {
+        $f = $_POST;
+    }
 }

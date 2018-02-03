@@ -1,10 +1,10 @@
 <?php /* @var $this Controller */ ?>
-<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html">
 	<meta name="language" content="en">
     <meta charset="utf-8">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.js "></script>
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection">

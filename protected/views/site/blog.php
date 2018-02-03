@@ -66,10 +66,10 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                             <h5>коментарии:</h5>
                         </div>
                         <div class="comment">
-                            <?php echo $form->textArea($comment, 'text', array('maxlength' => 255));?>
+                            <?php echo CHtml::textArea($record->id, "",  array('maxlength' => 255));?>
                         </div>
                         <div class="row buttons addComment">
-                            <?php echo CHtml::submitButton('Добавить'); ?>
+                            <?php echo CHtml::submitButton('Добавить', array('id' => $record->id, 'value' => 'Добавить', 'class' => "addButton")); ?>
                         </div>
                     </div>
                 </div>
@@ -78,3 +78,20 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
         <?php }?>
 <?php $this->endWidget(); ?>
     </div>
+<script>
+    $('.addButton').on('click', function () {
+        event.preventDefault();
+        $.ajax({
+            url: "<?php echo CController::createUrl('SiteController/addComment')?>",
+            method: 'Post',
+            dataType: 'json',
+            data: {
+                m: 12,
+            },
+            success: function (data) {
+                var f =0;
+                // json - объект (или массив)
+            }
+        })
+    });
+</script>
