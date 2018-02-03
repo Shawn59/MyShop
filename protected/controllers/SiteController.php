@@ -101,6 +101,11 @@ class SiteController extends Controller
             $this->render('blog', array('blog' => $blog, 'records' => $records, 'comment' => $comment));
     }
 
+    public function actionEditRecord() {
+        $record = new Records();
+        $this->render('editRecord', array('record' => $record));
+    }
+
     public function addComment() {
         $f = $_POST;
     }
