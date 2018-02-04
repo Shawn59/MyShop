@@ -3,20 +3,40 @@
     /*border-bottom: 1px solid #C9E0ED;*/
 }
 
-.record .title {
-    text-align: left;
-    padding-left: 100px;
+h4 {
+    margin: 0;
 }
 
-.record .text {
-    padding-left: 150px;
+ /*стили списка, строк и элементов*/
+.list .row {
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+}
+
+.list {
+ font-size: 14pt;
+}
+
+.row .item-input {
     color: #111;
-    padding-top: 10px;
-    font: italic 14px monospace;
+    font: italic 16px monospace;
 }
 
-.row .record{
-    border-top: 1px solid lightgrey;
+.row .item-input.button input {
+    height: 30px;
+}
+
+.row .item-input.description textarea{
+    height: 100px;
+}
+
+.row .item-input.description.div{
+    padding: 0px 15% 0px 15%;
+    text-align: left;
+}
+
+.row.borders {
+    border-bottom: 1px solid lightgrey;
     padding: 20px;
 }
 
@@ -34,7 +54,16 @@
     text-align: center;
 }
 
-textarea {
+.item .buttonEdit,
+.item .buttonDel {
+    margin: 0;
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+textarea,
+.item-input.textField input{
+    font-size: 14pt;
     padding: 5px;
     width: 600px;
     border: 2px solid #C9E0ED;

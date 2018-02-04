@@ -31,7 +31,6 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Мой блог', 'url'=>array('/site/blog')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 array('label'=>'Добавить запись', 'url'=>array('/site/editRecord'), 'visible' => !Yii::app()->user->isGuest),
 				array('label'=>'Регистрация', 'url'=>array('/site/register'), 'visible' => Yii::app()->user->isGuest), //isGuest - гость
 				array('label'=>'Авторизация', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

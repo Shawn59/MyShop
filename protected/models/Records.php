@@ -31,12 +31,13 @@ class Records extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('blog_id, name, text', 'required'),
+			array('blog_id, title, text', 'required'),
 			array('blog_id', 'numerical', 'integerOnly'=>true),
-			array('name, text', 'length', 'max'=>255),
+			array('title', 'length', 'max'=>70),
+            array('text', 'length', 'max'=>3000),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, blog_id, name, text', 'safe', 'on'=>'search'),
+			array('id, blog_id, title, text', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,7 +62,7 @@ class Records extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'blog_id' => 'Blog',
-			'name' => 'Name',
+			'title' => 'Title',
 			'text' => 'Text',
 		);
 	}
@@ -86,7 +87,7 @@ class Records extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('blog_id',$this->blog_id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('text',$this->text,true);
 
 		return new CActiveDataProvider($this, array(

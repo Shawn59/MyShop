@@ -60,6 +60,11 @@ class SiteController extends Controller
             $user->attributes = $_POST['Users'];
             $user->role_id = 2;
             if ($user->validate() && $user->save()) {
+                // создаю сразу блог после реги
+                $blog = new Blogs();
+                $blog->title = "Измените вас статус";
+                $blog->user_id = $user->id;
+                $blog->save();
                 Yii::app()->user->setFlash('reg', 'Вы успешно зарегистрировались');
                 $this->refresh();
             }
@@ -96,17 +101,55 @@ class SiteController extends Controller
 
     public  function  actionBlog() {
         $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
-            $records = Records::model()->findAll('blog_id = :Bid', array(':Bid' => $blog->id));
-            $comment = new Comments();
-            $this->render('blog', array('blog' => $blog, 'records' => $records, 'comment' => $comment));
+        $records = Records::model()->findAll('blog_id = :Bid', array(':Bid' => $blog->id));
+        $comment = new Comments();
+        $this->render('blog', array('blog' => $blog, 'records' => $records, 'comment' => $comment));
     }
 
-    public function actionEditRecord() {
-        $record = new Records();
+    public function actionEditBlog() {
+        if (isset($_POST['title'])) {
+            $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
+            $blog->title = trim($_POST['title']);
+            $blog->validate();
+            $blog->save();
+        }
+    }
+
+    public function actionEditRecord($id = null) {
+        $record = $id ? Records::model()->findByPk($id) : $record = new Records();
+        $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
+        if (isset($_POST['Records']) && isset($blog)) {
+            $record->attributes = $_POST['Records'];
+            $record->blog_id = $blog->id;
+            if ($record->validate() && $record->save()) {
+                $this->redirect('../site/record?id=' . $record->id);
+            } else {
+                //незабыть поменять
+                throw new Exception(var_dump($record->getErrors()));
+            }
+        }
         $this->render('editRecord', array('record' => $record));
     }
 
-    public function addComment() {
-        $f = $_POST;
+    public function actionRecord($id = null) {
+        if ($id) {
+            $record = Records::model()->findByPk($id);
+            $this->render('record', array('record' => $record));
+        } else {
+            throw new Exception('Ишь чо удумал');
+        }
+
+    }
+
+    public function actionDeleteRecord() {
+        if (isset($_POST['id'])) {
+            $record = Records::model()->findByPk($_POST['id']);
+            $record->delete();
+            $this->refresh();
+        }
+    }
+
+    public function actionAddComment() {
+
     }
 }
