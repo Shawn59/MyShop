@@ -19,22 +19,23 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
     ),
 )); ?>
         <div class="list">
+            <?php if (isset($blog)) {
+            $this->breadcrumbs = array('Мой блог');
+            $user = Users::model()->findByPk($blog->user_id);
+                ?>
             <div class="row">
                 <div class="title">
                     <h2>
                         <?php
-                            if (!Yii::app()->user->isGuest) {
-                                echo "Добро пожаловать на блог пользователя : " .  Yii::app()->user->name;
-                            } else {
-                                echo "Добро пожаловать";
-                            }
+                        if (!Yii::app()->user->isGuest) {
+                            echo "Добро пожаловать на блог пользователя : " . $user->login;
+                        } else {
+                            echo "Добро пожаловать";
+                        }
                         ?>
                     </h2>
                 </div>
             </div>
-            <?php if (isset($blog)) {
-            $this->breadcrumbs = array('Мой блог');
-                ?>
             <div class="row">
                 <div class="title">
                     <h4>Статус</h4>
@@ -43,8 +44,10 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
             <div class="row">
                 <div class="description">
                     <?php echo $form->textArea($blog, 'title', array('maxlength' => 255, 'readonly' => true, 'id' => 'blogTitle'));
+                    if ($user->id == Yii::app()->user->id) {
                         echo CHtml::button('Редактирвоать', array(
                             'onClick' => 'editTitle()', 'type' => 'image', 'src' => '/images/2.png', 'id' => 'buttonEditTitle'));
+                    }
                     ?>
                 </div>
             </div>
@@ -63,10 +66,12 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                         <div class="item">
                             <?php
                                 echo CHtml::link($record->title, '/site/record?id=' . $record->id);
-                                echo CHtml::button('Редактирвоать', array(
-                                        'onClick' => 'editRecord(' . $record->id . ')', 'type' => 'image', 'src' =>'/images/2.png', 'class' => 'buttonEdit'));
-                                echo CHtml::button('Удалить', array(
-                                        'onClick' => 'deleteRecord(' . $record->id . ')', 'type' => 'image', 'class' => 'buttonDel', 'src' =>'/images/1.png'));
+                        if ($user->id == Yii::app()->user->id) {
+                            echo CHtml::button('Редактирвоать', array(
+                                'onClick' => 'editRecord(' . $record->id . ')', 'type' => 'image', 'src' =>'/images/2.png', 'class' => 'buttonEdit'));
+                            echo CHtml::button('Удалить', array(
+                                'onClick' => 'deleteRecord(' . $record->id . ')', 'type' => 'image', 'class' => 'buttonDel', 'src' =>'/images/1.png'));
+                        }
                                 ?>
                         </div>
                     </div>
@@ -87,7 +92,24 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                     </div>
                 </div>-->
             </div>
-        <?php } else {}?>
+        <?php } else { ?>
+                <h4>Список блогеров</h4>
+            <?php
+                //выводим блоги
+                $blogs = Blogs::model()->findAll();
+                foreach ($blogs as $blog) {
+                    $userBlog = Users::model()->findByPk($blog->user_id);
+                    ?>
+                    <div class="list">
+                        <div class="row borders">
+                            <div class="item">
+                                <?php echo CHtml::link($userBlog->login, '/site/blog?id=' . $blog->id);?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+        }?>
 <?php $this->endWidget(); ?>
 <script>
 

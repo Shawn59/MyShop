@@ -99,8 +99,16 @@ class SiteController extends Controller
         $this->redirect(Yii::app()->homeUrl);
     }
 
-    public  function  actionBlog() {
-        $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
+    public  function  actionBlog($id = null) {
+
+        if (isset($id) && is_numeric($id)) {
+            $blog = Blogs::model()->findByPk($id);
+            if (!isset($blog)) {
+                $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
+            }
+        } else {
+            $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
+        }
         $records = Records::model()->findAll('blog_id = :Bid', array(':Bid' => $blog->id));
         $comment = new Comments();
         $this->render('blog', array('blog' => $blog, 'records' => $records, 'comment' => $comment));
@@ -116,8 +124,18 @@ class SiteController extends Controller
     }
 
     public function actionEditRecord($id = null) {
-        $record = $id ? Records::model()->findByPk($id) : $record = new Records();
         $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
+        if (isset($id) && is_numeric($id)) {
+            if ($record = Records::model()->findByPk($id)) {
+                if ($record->blog_id != $blog->id) {
+                    $this->redirect(Yii::app()->homeUrl);
+                }
+            } else {
+                $this->redirect(Yii::app()->homeUrl);
+            }
+        } else {
+            $record = new Records();
+        }
         if (isset($_POST['Records']) && isset($blog)) {
             $record->attributes = $_POST['Records'];
             $record->blog_id = $blog->id;
@@ -132,11 +150,31 @@ class SiteController extends Controller
     }
 
     public function actionRecord($id = null) {
-        if ($id) {
-            $record = Records::model()->findByPk($id);
-            $this->render('record', array('record' => $record));
+        if ($id && is_numeric($id)) {
+            if ($record = Records::model()->findByPk($id)) {
+                if (isset($_POST['Comments']['text']) && trim($_POST['Comments']['text']) != "") {
+                    $newComment = new Comments();
+                    $newComment->user_id = Yii::app()->user->id;
+                    $newComment->text = $_POST['Comments']['text'];
+                    $newComment->record_id = $id;
+                    $newComment->validate();
+                    $newComment->save();
+                }
+                $comments = Comments::model()->findAll('record_id=' . $record->id);
+                $listCom = array();
+                $index = 0;
+                foreach ($comments as $comment) {
+                    $user = Users::model()->findByPk($comment->user_id);
+                    $listCom[$index] = $user->login . ' : ' . $comment->text;
+                    $index++;
+                }
+                $newComment = new Comments();
+                $this->render('record', array('record' => $record, 'listCom' => $listCom, 'newComment' => $newComment));
+            } else {
+                $this->redirect(Yii::app()->user->returnUrl);
+            }
         } else {
-            throw new Exception('Ишь чо удумал');
+            $this->redirect(Yii::app()->user->returnUrl);
         }
 
     }
@@ -147,9 +185,5 @@ class SiteController extends Controller
             $record->delete();
             $this->refresh();
         }
-    }
-
-    public function actionAddComment() {
-
     }
 }

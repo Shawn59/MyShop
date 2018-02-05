@@ -36,6 +36,29 @@ $form = $this->beginWidget('CActiveForm', array(
                     echo $text;?>
                 </div>
             </div>
+            <div class="row">
+                <div class="item-title">
+                    <h4> Комментарии :</h4>
+                </div>
+            </div>
+            <?php
+            foreach ($listCom as $value) { ?>
+                <div class="row">
+                    <div class="item-input">
+                        <?php echo $value;?>
+                    </div>
+                </div>
+            <?php } ?>
+            <div class="row">
+                <div class="item-input description">
+                    <?php echo $form->textArea($newComment, 'text', array('maxlength' => 300));?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item-input button">
+                    <?php echo CHtml::submitButton('Добавить') ?>
+                </div>
+            </div>
         </div>
     </div>
     <div class="block-footer"> </div>
