@@ -10,7 +10,6 @@
 $this->pageTitle = Yii::app()->name . 'Создание блога';
 ?>
 
-
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id'=>'blogForm-from',
     'enableClientValidation'=>true,
@@ -58,7 +57,14 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                         <h4>Записи</h4>
                     </div>
                 </div>
-                <?php if ($records) {
+                <?php
+                $criteria = new CDbCriteria();
+                $count = Records::model()->count($criteria);
+                $pag = new CPagination($count);
+                $pag->pageSize = 10; // элементов на страницу
+                $pag->applyLimit($criteria);
+                $records = Records::model()->findAll($criteria);
+                if ($records) {
                     foreach ($records as $record) {
                     ?>
                 <div class="row borders">
@@ -76,11 +82,26 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                         </div>
                     </div>
                 </div>
-                <?php }}?>
+                <?php }
+
+                    //рисуем переключатель страниц
+                    $this->widget('CLinkPager', array(
+                        'pages' => $pag,
+                        'maxButtonCount' => 5,
+                        'prevPageLabel' => '&laquo; назад',
+                        'nextPageLabel' => 'далее &raquo;',
+                    ));
+                }?>
 
         <?php } else { ?>
                 <h4>Список блогеров</h4>
             <?php
+            $criteria = new CDbCriteria();
+            $count = Users::model()->count($criteria);
+            $pages = new CPagination($count);
+            $pages->pageSize = 10; // элементов на страницу
+            $pages->applyLimit($criteria);
+            $blogs = Blogs::model()->findAll($criteria);
                 //выводим блоги
                 foreach ($blogs as $blog) {
                     $userBlog = Users::model()->findByPk($blog->user_id);
@@ -94,31 +115,18 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                     </div>
                     <?php
                 }
-            $this->widget('CLinkPager', array(
-                'internalPageCssClass' => '',
-                'pages' => $pages, //$paginator определен в контроллере
-                'id' => '',
-                'header' => '',
-                'selectedPageCssClass' => 'active',
-                'hiddenPageCssClass' => 'disabled',
-                'nextPageLabel' => '&raquo;',         // »
-                'prevPageLabel' => '&laquo;',         // «
-                'lastPageLabel' => '&raquo;&raquo;',  // »»
-                'firstPageLabel' => '&laquo;&laquo;', // ««
-                'htmlOptions' => array('class' => 'pagination'),
+            //рисуем переключатель страниц
+                $this->widget('CLinkPager', array(
+                'pages' => $pages,
+                'prevPageLabel' => '&laquo; назад',
+                'nextPageLabel' => 'далее &raquo;',
             ));
+
         }?>
 
 <?php $this->endWidget(); ?>
-                <!--рисуем переключатель страниц-->
-               <!-- --><?php /*$this->widget('zii.widgets.CLinkPager', array(
-                    'pages' => $pages,
-                    'prevPageLabel' => '&laquo; назад',
-                    'nextPageLabel' => 'далее &raquo;',
-                ));
-                */?>
-<script>
 
+<script>
   var deleteRecord = function (id) {
         $.ajax({
             url: "<?php echo CController::createUrl('site/deleteRecord')?>",

@@ -33,21 +33,7 @@ class SiteController extends Controller
     {
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-        $criteria = new CDbCriteria();
-
-        $count = Users::model()->count($criteria);
-
-        $pages = new CPagination($count);
-
-        $pages->pageSize = 10; // элементов на страницу
-        $pages->applyLimit($criteria);
-
-        $blogs = Blogs::model()->findAll($criteria);
-
-        $this->render('blog', array(
-            'blogs' => $blogs,
-            'pages' => $pages
-        ));
+        $this->render('blog');
     }
 
     /**
@@ -123,9 +109,9 @@ class SiteController extends Controller
         } else {
             $blog = Blogs::model()->find('user_id = :Uid', array(':Uid' => Yii::app()->user->id));
         }
-        $records = Records::model()->findAll('blog_id = :Bid', array(':Bid' => $blog->id));
+       // $records = Records::model()->findAll('blog_id = :Bid', array(':Bid' => $blog->id));
         $comment = new Comments();
-        $this->render('blog', array('blog' => $blog, 'records' => $records, 'comment' => $comment));
+        $this->render('blog', array('blog' => $blog, 'comment' => $comment));
     }
 
     public function actionEditBlog() {
