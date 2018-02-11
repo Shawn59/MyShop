@@ -33,7 +33,21 @@ class SiteController extends Controller
     {
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-        $this->render('blog');
+        $criteria = new CDbCriteria();
+
+        $count = Users::model()->count($criteria);
+
+        $pages = new CPagination($count);
+
+        $pages->pageSize = 10; // элементов на страницу
+        $pages->applyLimit($criteria);
+
+        $blogs = Blogs::model()->findAll($criteria);
+
+        $this->render('blog', array(
+            'blogs' => $blogs,
+            'pages' => $pages
+        ));
     }
 
     /**

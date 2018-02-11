@@ -77,26 +77,11 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                     </div>
                 </div>
                 <?php }}?>
-               <!-- <div class="row borders">
-                    <div class="title">
-                        <?php
-/*                        $pages=new CPagination($count);
-                        // элементов на страницу
-                        $pages->pageSize=10;
-                        $this->widget('CLinkPager', array(
-                            'model' => $record,
-                            'pages' => $pages,
-                            'prevPageLabel' => '&laquo; назад',
-                            'nextPageLabel' => 'далее &raquo;',
-                        )); */?>
-                    </div>
-                </div>-->
-            </div>
+
         <?php } else { ?>
                 <h4>Список блогеров</h4>
             <?php
                 //выводим блоги
-                $blogs = Blogs::model()->findAll();
                 foreach ($blogs as $blog) {
                     $userBlog = Users::model()->findByPk($blog->user_id);
                     ?>
@@ -109,8 +94,29 @@ $this->pageTitle = Yii::app()->name . 'Создание блога';
                     </div>
                     <?php
                 }
+            $this->widget('CLinkPager', array(
+                'internalPageCssClass' => '',
+                'pages' => $pages, //$paginator определен в контроллере
+                'id' => '',
+                'header' => '',
+                'selectedPageCssClass' => 'active',
+                'hiddenPageCssClass' => 'disabled',
+                'nextPageLabel' => '&raquo;',         // »
+                'prevPageLabel' => '&laquo;',         // «
+                'lastPageLabel' => '&raquo;&raquo;',  // »»
+                'firstPageLabel' => '&laquo;&laquo;', // ««
+                'htmlOptions' => array('class' => 'pagination'),
+            ));
         }?>
+
 <?php $this->endWidget(); ?>
+                <!--рисуем переключатель страниц-->
+               <!-- --><?php /*$this->widget('zii.widgets.CLinkPager', array(
+                    'pages' => $pages,
+                    'prevPageLabel' => '&laquo; назад',
+                    'nextPageLabel' => 'далее &raquo;',
+                ));
+                */?>
 <script>
 
   var deleteRecord = function (id) {
